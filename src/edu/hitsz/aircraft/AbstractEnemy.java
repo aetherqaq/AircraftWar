@@ -4,6 +4,7 @@ import edu.hitsz.application.Main;
 
 import edu.hitsz.bullet.BaseBullet;
 import edu.hitsz.basic.AbstractFlyingObject;
+import edu.hitsz.prop.BaseProp;
 
 import java.util.List;
 
@@ -25,5 +26,7 @@ public abstract class AbstractEnemy extends AbstractAircraft {
             vanish();
         }
     }
+
+    public abstract List<BaseProp> generateProp();
 
 }

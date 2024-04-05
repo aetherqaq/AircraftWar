@@ -1,0 +1,21 @@
+package edu.hitsz.prop;
+
+import edu.hitsz.basic.AbstractFlyingObject;
+import edu.hitsz.aircraft.HeroAircraft;
+/**
+ * 所有种类道具的抽象父类：
+ * 加血道具、火力道具、炸弹道具
+ *
+ * @author hitsz
+ */
+public abstract class BaseProp extends AbstractFlyingObject {
+
+    public BaseProp(int locationX, int locationY, int speedX, int speedY) {
+        super(locationX, locationY, speedX, speedY);
+    }
+
+    public abstract void active(HeroAircraft heroAircraft);
+}
+
+
+
