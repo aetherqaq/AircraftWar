@@ -31,6 +31,7 @@ abstract class AbstractAircraft
     # hp:int
     + AbstractAircraft(int locationX, int locationY, int speedX, int speedY, int hp)
     + decreaseHp(int decrease):void
+    + increaseHp(int increase):void
     + getHp():int
     + {abstract} shoot():List<BaseBullet>
  }
@@ -47,12 +48,32 @@ class HeroAircraft {
 
 AbstractAircraft <|-- HeroAircraft
 
+abstract class AbstractEnemy {
+    + AbstractEnemy(int locationX, int locationY, int speedX, int speedY, int hp)
+    + forward():void
+    + {abstract} generateProp() : List<BaseProp>
+}
+
+AbstractAircraft <|-- AbstractEnemy
+
 class MobEnemy {
     + MobEnemy(int locationX, int locationY, int speedX, int speedY, int hp)
-    + forward():void
     + shoot():List<BaseBullet>
+    + generateProp() : List<BaseProp>
 }
-AbstractAircraft <|-- MobEnemy
+
+AbstractEnemy <|-- MobEnemy
+
+class EliteEnemy {
+    - shootNum:int
+    - power:int
+    - direction:int
+    + EliteEnemy(int locationX, int locationY, int speedX, int speedY, int hp)
+    + shoot():List<BaseBullet>
+    + generateProp() : List<BaseProp>
+}
+
+AbstractEnemy <|-- EliteEnemy
 
 abstract class BaseBullet
 {
@@ -75,7 +96,34 @@ class EnemyBullet {
 BaseBullet <|-- HeroBullet
 BaseBullet <|-- EnemyBullet
 
+abstract class BaseProp {
+    + BaseProp(int locationX, int locationY, int speedX, int speedY)
+    + {abstract} active(HeroAircraft heroAircraft): void
+}
+
+class PropBlood {
+     - cure: int
+     + PropBlood(int locationX, int locationY, int speedX, int speedY)
+     + active(HeroAircraft heroAircraft): void
+}
+
+class PropBomb {
+     + PropBomb(int locationX, int locationY, int speedX, int speedY)
+     + active(HeroAircraft heroAircraft): void
+}
+
+class PropBullet {
+     + PropBullet(int locationX, int locationY, int speedX, int speedY)
+     + active(HeroAircraft heroAircraft): void
+}
+
+BaseProp <|-- PropBlood
+BaseProp <|-- PropBomb
+BaseProp <|-- PropBullet
+
+
 AbstractFlyingObject <|-- AbstractAircraft
 AbstractFlyingObject <|-- BaseBullet
+AbstractFlyingObject <|-- BaseProp
 
 @enduml
