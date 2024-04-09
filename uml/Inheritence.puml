@@ -71,6 +71,7 @@ class EliteEnemy {
     + EliteEnemy(int locationX, int locationY, int speedX, int speedY, int hp)
     + shoot():List<BaseBullet>
     + generateProp() : List<BaseProp>
+    + forward():void
 }
 
 AbstractEnemy <|-- EliteEnemy

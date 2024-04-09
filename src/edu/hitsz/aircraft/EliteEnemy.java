@@ -85,5 +85,15 @@ public class EliteEnemy extends AbstractEnemy {
             res.add(prop);
         }
         return res;
-    };
+    }
+
+    /**
+     * 精英机随机左右移动
+     */
+    public void forward() {
+        super.forward();
+        if(Math.random()<0.05){
+            speedX *= -1;
+        }
+    }
 }

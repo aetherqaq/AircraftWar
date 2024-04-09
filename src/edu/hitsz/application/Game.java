@@ -68,7 +68,7 @@ public class Game extends JPanel {
         heroAircraft = new HeroAircraft(
                 Main.WINDOW_WIDTH / 2,
                 Main.WINDOW_HEIGHT - ImageManager.HERO_IMAGE.getHeight() ,
-                0, 0, 100);
+                0, 0, 1000);
 
         enemyAircrafts = new LinkedList<>();
         heroBullets = new LinkedList<>();
@@ -118,7 +118,7 @@ public class Game extends JPanel {
                         enemyAircrafts.add(new EliteEnemy(
                                 (int) (Math.random() * (Main.WINDOW_WIDTH - ImageManager.ELITE_ENEMY_IMAGE.getWidth())),
                                 (int) (Math.random() * Main.WINDOW_HEIGHT * 0.05),
-                                0,
+                                5,
                                 10,
                                 30
                         ));
@@ -263,7 +263,7 @@ public class Game extends JPanel {
 
         // 我方获得道具，道具生效
         for (BaseProp prop : props) {
-            if (heroAircraft.crash(prop)) {
+            if (heroAircraft.crash(prop) || prop.crash(heroAircraft)) {
                 prop.active(heroAircraft);
                 prop.vanish();
             }
