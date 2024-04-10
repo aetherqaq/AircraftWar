@@ -3,10 +3,8 @@ package edu.hitsz.aircraft;
 import edu.hitsz.application.Main;
 import edu.hitsz.bullet.BaseBullet;
 import edu.hitsz.bullet.EnemyBullet;
-import edu.hitsz.prop.BaseProp;
-import edu.hitsz.prop.PropBlood;
-import edu.hitsz.prop.PropBomb;
-import edu.hitsz.prop.PropBullet;
+import edu.hitsz.prop.*;
+
 
 import java.util.LinkedList;
 import java.util.List;
@@ -65,23 +63,26 @@ public class EliteEnemy extends AbstractEnemy {
     public List<BaseProp> generateProp(){
         double rand = Math.random();
         List<BaseProp> res = new LinkedList<>();
+        PropFactory propFactory;
+        BaseProp prop;
         int x = this.getLocationX();
         int y = this.getLocationY();
-        int speedX = 0;
-        int speedY = this.getSpeedY();
         if(rand < 0.25){
             return res;
         }
         else if(rand < 0.5){
-            BaseProp prop = new PropBlood(x,y,speedX,speedY);
+            propFactory = new BloodFactory(x,y);
+            prop = propFactory.createProp();
             res.add(prop);
         }
         else if(rand < 0.75){
-            BaseProp prop = new PropBomb(x,y,speedX,speedY);
+            propFactory = new BombFactory(x,y);
+            prop = propFactory.createProp();
             res.add(prop);
         }
         else{
-            BaseProp prop = new PropBullet(x,y,speedX,speedY);
+            propFactory = new BulletFactory(x,y);
+            prop = propFactory.createProp();
             res.add(prop);
         }
         return res;

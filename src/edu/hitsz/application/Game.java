@@ -65,10 +65,7 @@ public class Game extends JPanel {
     private boolean gameOverFlag = false;
 
     public Game() {
-        heroAircraft = new HeroAircraft(
-                Main.WINDOW_WIDTH / 2,
-                Main.WINDOW_HEIGHT - ImageManager.HERO_IMAGE.getHeight() ,
-                0, 0, 1000);
+        heroAircraft = HeroAircraft.getHeroAircraft();
 
         enemyAircrafts = new LinkedList<>();
         heroBullets = new LinkedList<>();
@@ -104,24 +101,18 @@ public class Game extends JPanel {
                 System.out.println(time);
                 // 新敌机产生
 
+                EnemyFactory enemyFactory;
+                AbstractEnemy enemy;
                 if (enemyAircrafts.size() < enemyMaxNumber) {
                     if(Math.random()<0.7){
-                        enemyAircrafts.add(new MobEnemy(
-                                (int) (Math.random() * (Main.WINDOW_WIDTH - ImageManager.MOB_ENEMY_IMAGE.getWidth())),
-                                (int) (Math.random() * Main.WINDOW_HEIGHT * 0.05),
-                                0,
-                                10,
-                                30
-                        ));
+                        enemyFactory = new MobFactory();
+                        enemy = enemyFactory.createEnemy();
+                        enemyAircrafts.add(enemy);
                     }
                     else{
-                        enemyAircrafts.add(new EliteEnemy(
-                                (int) (Math.random() * (Main.WINDOW_WIDTH - ImageManager.ELITE_ENEMY_IMAGE.getWidth())),
-                                (int) (Math.random() * Main.WINDOW_HEIGHT * 0.05),
-                                5,
-                                10,
-                                30
-                        ));
+                        enemyFactory = new EliteFactory();
+                        enemy = enemyFactory.createEnemy();
+                        enemyAircrafts.add(enemy);
                     }
 
                 }
