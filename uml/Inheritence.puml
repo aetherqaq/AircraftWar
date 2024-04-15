@@ -99,23 +99,23 @@ BaseBullet <|-- EnemyBullet
 
 abstract class BaseProp {
     + BaseProp(int locationX, int locationY, int speedX, int speedY)
-    + {abstract} active(HeroAircraft heroAircraft): void
+    + {abstract} active(): void
 }
 
 class PropBlood {
      - cure: int
      + PropBlood(int locationX, int locationY, int speedX, int speedY)
-     + active(HeroAircraft heroAircraft): void
+     + active(): void
 }
 
 class PropBomb {
      + PropBomb(int locationX, int locationY, int speedX, int speedY)
-     + active(HeroAircraft heroAircraft): void
+     + active(): void
 }
 
 class PropBullet {
      + PropBullet(int locationX, int locationY, int speedX, int speedY)
-     + active(HeroAircraft heroAircraft): void
+     + active(): void
 }
 
 BaseProp <|-- PropBlood

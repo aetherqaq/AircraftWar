@@ -1,0 +1,60 @@
+@startuml
+'https://plantuml.com/class-diagram
+
+abstract class BaseProp {
+    + BaseProp(int locationX, int locationY, int speedX, int speedY)
+    + {abstract} active(): void
+}
+
+class PropBlood {
+     - cure: int
+     + PropBlood(int locationX, int locationY, int speedX, int speedY)
+     + active(): void
+}
+
+class PropBomb {
+     + PropBomb(int locationX, int locationY, int speedX, int speedY)
+     + active(): void
+}
+
+class PropBullet {
+     + PropBullet(int locationX, int locationY, int speedX, int speedY)
+     + active(): void
+}
+
+BaseProp <|-- PropBlood
+BaseProp <|-- PropBomb
+BaseProp <|-- PropBullet
+
+abstract class PropFactory {
+    - locationX: int
+    - locationY: int
+    + PropFactory(int locationX,int locationY)
+    + {abstract} createProp(): BaseProp
+}
+
+class BloodFactory {
+    + BloodFactory(int locationX,int locationY)
+    + createProp(): BaseProp
+}
+
+class BombFactory {
+    + BloodFactory(int locationX,int locationY)
+    + createProp(): BaseProp
+}
+
+class BulletFactory {
+    + BloodFactory(int locationX,int locationY)
+    + createProp(): BaseProp
+}
+
+PropFactory <|-- BloodFactory
+PropFactory <|-- BombFactory
+PropFactory <|-- BulletFactory
+
+BloodFactory ..> PropBlood
+BulletFactory ..> PropBullet
+BombFactory ..> PropBomb
+
+
+@enduml

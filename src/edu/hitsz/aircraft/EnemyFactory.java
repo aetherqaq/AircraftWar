@@ -1,7 +1,8 @@
 package edu.hitsz.aircraft;
 
 /**
- * 敌机工厂接口
+ * 敌机工厂接口：
+ * MobFactory，EliteFactory
  *
  * @author hitsz
  */

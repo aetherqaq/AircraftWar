@@ -3,6 +3,11 @@ package edu.hitsz.aircraft;
 import edu.hitsz.application.ImageManager;
 import edu.hitsz.application.Main;
 
+/**
+ * 精英敌机工厂
+ *
+ * @author hitsz
+ */
 public class EliteFactory implements EnemyFactory{
     @Override
     public AbstractEnemy createEnemy(){

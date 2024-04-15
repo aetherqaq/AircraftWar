@@ -255,7 +255,7 @@ public class Game extends JPanel {
         // 我方获得道具，道具生效
         for (BaseProp prop : props) {
             if (heroAircraft.crash(prop) || prop.crash(heroAircraft)) {
-                prop.active(heroAircraft);
+                prop.active();
                 prop.vanish();
             }
         }

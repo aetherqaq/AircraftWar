@@ -13,7 +13,8 @@ public class PropBlood extends BaseProp {
     }
 
     @Override
-    public void active(HeroAircraft heroAircraft) {
+    public void active() {
+        HeroAircraft heroAircraft = HeroAircraft.getHeroAircraft();
         heroAircraft.increaseHp(cure);
     }
 }

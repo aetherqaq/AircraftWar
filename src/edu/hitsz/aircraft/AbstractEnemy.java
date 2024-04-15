@@ -9,7 +9,8 @@ import edu.hitsz.prop.BaseProp;
 import java.util.List;
 
 /**
- * 抽象敌机
+ * 所有种类敌机的抽象父类：
+ * BOSS, ELITE, MOB
  *
  * @author hitsz
  */

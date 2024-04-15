@@ -14,7 +14,11 @@ public abstract class BaseProp extends AbstractFlyingObject {
         super(locationX, locationY, speedX, speedY);
     }
 
-    public abstract void active(HeroAircraft heroAircraft);
+    /**
+     * 道具生效方法
+     *
+     */
+    public abstract void active();
 }
 
 

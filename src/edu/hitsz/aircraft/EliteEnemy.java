@@ -12,6 +12,7 @@ import java.util.List;
 /**
  * 精英敌机
  * 可射击
+ * 向下同时左右移动
  *
  * @author hitsz
  */
@@ -67,15 +68,15 @@ public class EliteEnemy extends AbstractEnemy {
         BaseProp prop;
         int x = this.getLocationX();
         int y = this.getLocationY();
-        if(rand < 0.25){
+        if(rand < 0.1){
             return res;
         }
-        else if(rand < 0.5){
+        else if(rand < 0.4){
             propFactory = new BloodFactory(x,y);
             prop = propFactory.createProp();
             res.add(prop);
         }
-        else if(rand < 0.75){
+        else if(rand < 0.7){
             propFactory = new BombFactory(x,y);
             prop = propFactory.createProp();
             res.add(prop);

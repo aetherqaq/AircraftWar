@@ -1,0 +1,49 @@
+@startuml
+'https://plantuml.com/class-diagram
+
+abstract class AbstractEnemy {
+    + AbstractEnemy(int locationX, int locationY, int speedX, int speedY, int hp)
+    + forward():void
+    + {abstract} generateProp() : List<BaseProp>
+}
+
+
+class MobEnemy {
+    + MobEnemy(int locationX, int locationY, int speedX, int speedY, int hp)
+    + shoot():List<BaseBullet>
+    + generateProp() : List<BaseProp>
+}
+
+AbstractEnemy <|-- MobEnemy
+
+class EliteEnemy {
+    - shootNum:int
+    - power:int
+    - direction:int
+    + EliteEnemy(int locationX, int locationY, int speedX, int speedY, int hp)
+    + shoot():List<BaseBullet>
+    + generateProp() : List<BaseProp>
+    + forward():void
+}
+
+AbstractEnemy <|-- EliteEnemy
+
+interface EnemyFactory {
+    + {abstract} createEnemy(): AbstractEnemy
+}
+
+class MobFactory {
+    + createEnemy(): AbstractEnemy
+}
+
+class EliteFactory {
+    + createEnemy(): AbstractEnemy
+}
+
+EnemyFactory <|.. MobFactory
+EnemyFactory <|.. EliteFactory
+
+MobFactory ..> MobEnemy
+EliteFactory ..> EliteEnemy
+
+@enduml

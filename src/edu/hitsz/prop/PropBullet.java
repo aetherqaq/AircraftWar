@@ -8,7 +8,7 @@ public class PropBullet extends BaseProp {
     }
 
     @Override
-    public void active(HeroAircraft heroAircraft) {
+    public void active() {
         System.out.println("FireSupply active");
     }
 }
