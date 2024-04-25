@@ -59,6 +59,12 @@ public class Game extends JPanel {
     private int cycleDuration = 600;
     private int cycleTime = 0;
 
+
+    /**
+     * 产生boss敌机分数
+     */
+    private int bossScore = 0;
+
     /**
      * 游戏结束标志
      */
@@ -104,18 +110,31 @@ public class Game extends JPanel {
                 EnemyFactory enemyFactory;
                 AbstractEnemy enemy;
                 if (enemyAircrafts.size() < enemyMaxNumber) {
-                    if(Math.random()<0.7){
+                    double rand = Math.random();
+                    if(rand<0.6){
                         enemyFactory = new MobFactory();
                         enemy = enemyFactory.createEnemy();
                         enemyAircrafts.add(enemy);
                     }
-                    else{
+                    else if(rand<0.8){
                         enemyFactory = new EliteFactory();
+                        enemy = enemyFactory.createEnemy();
+                        enemyAircrafts.add(enemy);
+                    }
+                    else{
+                        enemyFactory = new ElitePlusFactory();
                         enemy = enemyFactory.createEnemy();
                         enemyAircrafts.add(enemy);
                     }
 
                 }
+                if(score >= bossScore){
+                    bossScore += 500;
+                    enemyFactory = new BossFactory();
+                    enemy = enemyFactory.createEnemy();
+                    enemyAircrafts.add(enemy);
+                }
+
                 // 飞机射出子弹
                 shootAction();
             }
@@ -174,6 +193,12 @@ public class Game extends JPanel {
     private void shootAction() {
         // 敌机射击
         for(AbstractEnemy enemyAircraft : enemyAircrafts) {
+            if(enemyAircraft instanceof BossEnemy){
+                if(time%1800==0){
+                    enemyBullets.addAll(enemyAircraft.shoot());
+                }
+                continue;
+            }
             enemyBullets.addAll(enemyAircraft.shoot());
         }
 

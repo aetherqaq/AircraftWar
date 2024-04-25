@@ -17,7 +17,7 @@ public class HeroAircraft extends AbstractAircraft {
     /** 单例模式 饿汉式*/
     private static HeroAircraft heroAircraft = new HeroAircraft(Main.WINDOW_WIDTH / 2,
             Main.WINDOW_HEIGHT - ImageManager.HERO_IMAGE.getHeight() ,
-            0, 0, 1000);
+            0, 0, 10000);
 
     /**攻击方式 */
 
