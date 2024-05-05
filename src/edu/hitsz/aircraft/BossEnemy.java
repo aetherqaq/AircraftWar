@@ -1,10 +1,8 @@
 package edu.hitsz.aircraft;
 
-import edu.hitsz.application.Main;
 import edu.hitsz.bullet.BaseBullet;
-import edu.hitsz.bullet.EnemyBullet;
 import edu.hitsz.prop.*;
-import edu.hitsz.application.ImageManager;
+import edu.hitsz.shoot.RingShoot;
 
 
 import java.util.LinkedList;
@@ -40,6 +38,7 @@ public class BossEnemy extends AbstractEnemy {
 
     public BossEnemy(int locationX, int locationY, int speedX, int speedY, int hp) {
         super(locationX, locationY, speedX, speedY, hp);
+        this.setShootStrategy(new RingShoot());
     }
 
     @Override
@@ -48,19 +47,7 @@ public class BossEnemy extends AbstractEnemy {
      * @return 射击出的子弹List
      */
     public List<BaseBullet> shoot() {
-        List<BaseBullet> res = new LinkedList<>();
-        int x = this.getLocationX();
-        int y = this.getLocationY();
-        int r = ImageManager.ELITE_ENEMY_IMAGE.getWidth() + 10;
-        BaseBullet bullet;
-        for(int i=0; i<shootNum; i++){
-            // 多个子弹以boss中心为圆心呈圆形分散
-            double theta = 2 * Math.PI / shootNum * i;
-            bullet = new EnemyBullet((int) (x + r * Math.cos(theta)), (int) (y + r * Math.sin(theta)),
-                    (int) (Math.cos(theta)* 5), (int) (Math.sin(theta)* 5), power);
-            res.add(bullet);
-        }
-        return res;
+        return shootStrategy.shoot(getLocationX(),getLocationY(),getSpeedX(),getSpeedY(),power,direction);
     }
 
     @Override
@@ -71,21 +58,21 @@ public class BossEnemy extends AbstractEnemy {
         BaseProp prop;
         int x = this.getLocationX();
         int y = this.getLocationY();
-        if(rand < 0.1){
+        if(rand < 0){
             return res;
         }
-        else if(rand < 0.4){
+        else if(rand < 0){
             propFactory = new BloodFactory(x,y);
             prop = propFactory.createProp();
             res.add(prop);
         }
-        else if(rand < 0.7){
+        else if(rand < 0){
             propFactory = new BombFactory(x,y);
             prop = propFactory.createProp();
             res.add(prop);
         }
         else{
-            propFactory = new BulletFactory(x,y);
+            propFactory = new BulletPlusFactory(x,y);
             prop = propFactory.createProp();
             res.add(prop);
         }

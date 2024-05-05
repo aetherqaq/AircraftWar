@@ -199,7 +199,21 @@ public class Game extends JPanel {
                 }
                 continue;
             }
-            enemyBullets.addAll(enemyAircraft.shoot());
+            else if(enemyAircraft instanceof EliteEnemy){
+                if(time%1800==0){
+                    enemyBullets.addAll(enemyAircraft.shoot());
+                }
+                continue;
+            }
+            else if(enemyAircraft instanceof ElitePlusEnemy){
+                if(time%1200==0){
+                    enemyBullets.addAll(enemyAircraft.shoot());
+                }
+                continue;
+            }
+            else{
+                enemyBullets.addAll(enemyAircraft.shoot());
+            }
         }
 
         // 英雄射击
