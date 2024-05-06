@@ -1,0 +1,36 @@
+@startuml
+'https://plantuml.com/class-diagram
+
+class User{
+    -score:int
+    -userName:String
+    -time:int
+    +User(int score, String userName, String time)
+    +getScore():int
+    +setScore(int score):void
+    +getUserName():String
+    +setUserName(String userName):void
+    +getTime():String
+    +setTime(String time):void
+}
+
+interface UserDao{
+    +{abstract} getAllUsers(): List<User>
+    +{abstract} doAdd(User):void
+    +{abstract} printRanking():void
+    +{abstract} update():void
+}
+
+class UserDaoImpl{
+    -users:List<User>
+    +UserDaoImpl()
+    +getAllUsers(): List<User>
+    +doAdd(User):void
+    +printRanking():void
+    +update():void
+}
+
+UserDao <|.. UserDaoImpl
+User <-- UserDaoImpl
+
+@enduml

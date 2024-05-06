@@ -4,11 +4,16 @@ import edu.hitsz.aircraft.*;
 import edu.hitsz.bullet.BaseBullet;
 import edu.hitsz.basic.AbstractFlyingObject;
 import edu.hitsz.prop.BaseProp;
+import edu.hitsz.ranking.User;
+import edu.hitsz.ranking.UserDaoImpl;
 import org.apache.commons.lang3.concurrent.BasicThreadFactory;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.image.BufferedImage;
+import java.io.IOException;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.*;
 import java.util.List;
 import java.util.concurrent.*;
@@ -69,6 +74,8 @@ public class Game extends JPanel {
      * 游戏结束标志
      */
     private boolean gameOverFlag = false;
+
+    private UserDaoImpl UserDao;
 
     public Game() {
         heroAircraft = HeroAircraft.getHeroAircraft();
@@ -163,6 +170,23 @@ public class Game extends JPanel {
                 executorService.shutdown();
                 gameOverFlag = true;
                 System.out.println("Game Over!");
+
+                try {
+                    UserDao = new UserDaoImpl();
+                } catch (IOException | ClassNotFoundException e) {
+                    throw new RuntimeException(e);
+                }
+                String name = "testUserName";
+                Date date = new Date();
+                DateFormat format = new SimpleDateFormat("MM-dd HH:mm");
+                String time = format.format(date);
+                UserDao.doAdd(new User(score,name,time));
+                UserDao.printRanking();
+                try {
+                    UserDao.update();
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
+                }
             }
 
         };
@@ -280,7 +304,18 @@ public class Game extends JPanel {
                     if (enemyAircraft.notValid()) {
                         // 获得分数，产生道具补给
                         props.addAll(enemyAircraft.generateProp());
-                        score += 10;
+                        if(enemyAircraft instanceof MobEnemy){
+                            score += 10;
+                        }
+                        else if(enemyAircraft instanceof EliteEnemy){
+                            score += 20;
+                        }
+                        else if(enemyAircraft instanceof ElitePlusEnemy){
+                            score += 30;
+                        }
+                        else if(enemyAircraft instanceof BossEnemy){
+                            score += 50;
+                        }
                     }
                 }
                 // 英雄机 与 敌机 相撞，均损毁

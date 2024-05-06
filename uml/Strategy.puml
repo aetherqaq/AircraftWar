@@ -1,0 +1,39 @@
+@startuml
+'https://plantuml.com/class-diagram
+
+interface ShootStrategy {
+    + {abstract} shoot(): List<BaseBullet>
+}
+
+class DirectShoot {
+    + shoot(): List<BaseBullet>
+}
+
+class RingShoot {
+    + shoot(): List<BaseBullet>
+}
+
+class ScatteringShoot {
+    + shoot(): List<BaseBullet>
+}
+
+ShootStrategy <|.. DirectShoot
+ShootStrategy <|.. RingShoot
+ShootStrategy <|.. ScatteringShoot
+
+abstract class AbstractAircraft
+{
+	# maxHp:int
+    # hp:int
+    # shootStrategy:ShootStrategy
+    + AbstractAircraft(int locationX, int locationY, int speedX, int speedY, int hp)
+    + decreaseHp(int decrease):void
+    + increaseHp(int increase):void
+    + getHp():int
+    + {abstract} shoot():List<BaseBullet>
+    + setShootStrategy(ShootStrategy):void
+ }
+
+AbstractAircraft o--> ShootStrategy
+
+@enduml
