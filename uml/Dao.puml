@@ -19,6 +19,7 @@ interface UserDao{
     +{abstract} doAdd(User):void
     +{abstract} printRanking():void
     +{abstract} update():void
+    +{abstract} doDelete(int num):void
 }
 
 class UserDaoImpl{
@@ -28,6 +29,7 @@ class UserDaoImpl{
     +doAdd(User):void
     +printRanking():void
     +update():void
+    +doDelete(int num):void
 }
 
 UserDao <|.. UserDaoImpl

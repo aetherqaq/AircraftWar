@@ -38,6 +38,7 @@ public class UserDaoImpl implements UserDao{
     public void doAdd(User user) {
         users.add(user);
         Collections.sort(users);
+        return;
     }
 
     @Override
@@ -64,6 +65,11 @@ public class UserDaoImpl implements UserDao{
             osw.write(System.lineSeparator());
         }
         osw.close();
+    }
 
+    @Override
+    public void doDelete(int num){
+        users.remove(users.get(num));
+        return;
     }
 }
