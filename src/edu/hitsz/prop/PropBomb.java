@@ -11,4 +11,5 @@ public class PropBomb extends BaseProp {
     public void active() {
         System.out.println("BombSupply active");
     }
+
 }
