@@ -27,7 +27,7 @@ public class UserDaoImpl implements UserDao{
 
     }
 
-    //获取所有图书
+    //获取所有用户
     @Override
     public List<User> getAllUsers() {
         return users;
@@ -38,6 +38,11 @@ public class UserDaoImpl implements UserDao{
     public void doAdd(User user) {
         users.add(user);
         Collections.sort(users);
+        try {
+            this.update();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
         return;
     }
 
@@ -70,6 +75,11 @@ public class UserDaoImpl implements UserDao{
     @Override
     public void doDelete(int num){
         users.remove(users.get(num));
+        try {
+            this.update();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
         return;
     }
 }

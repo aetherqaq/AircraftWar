@@ -71,4 +71,6 @@ public class HeroAircraft extends AbstractAircraft {
         return shootStrategy.shoot(getLocationX(),getLocationY(),getSpeedX(),getSpeedY(),power,direction);
     }
 
+    public void update(){};
+
 }

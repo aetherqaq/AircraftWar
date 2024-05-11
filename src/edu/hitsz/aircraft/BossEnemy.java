@@ -58,15 +58,15 @@ public class BossEnemy extends AbstractEnemy {
         BaseProp prop;
         int x = this.getLocationX();
         int y = this.getLocationY();
-        if(rand < 0){
+        if(rand < 0.3){
             return res;
         }
-        else if(rand < 0){
+        else if(rand < 0.5){
             propFactory = new BloodFactory(x,y);
             prop = propFactory.createProp();
             res.add(prop);
         }
-        else if(rand < 0){
+        else if(rand < 0.7){
             propFactory = new BombFactory(x,y);
             prop = propFactory.createProp();
             res.add(prop);
@@ -85,4 +85,6 @@ public class BossEnemy extends AbstractEnemy {
     public void forward() {
         super.forward();
     }
+
+    public void update(){};
 }

@@ -83,4 +83,8 @@ public class EliteEnemy extends AbstractEnemy {
             speedX *= -1;
         }
     }
+
+    public void update(){
+        vanish();
+    }
 }

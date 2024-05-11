@@ -9,4 +9,6 @@ public class HeroBullet extends BaseBullet {
         super(locationX, locationY, speedX, speedY, power);
     }
 
+    public void update(){};
+
 }

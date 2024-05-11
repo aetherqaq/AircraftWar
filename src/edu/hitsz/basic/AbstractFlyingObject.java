@@ -170,5 +170,7 @@ public abstract class AbstractFlyingObject {
         isValid = false;
     }
 
+    public abstract void update();
+
 }
 

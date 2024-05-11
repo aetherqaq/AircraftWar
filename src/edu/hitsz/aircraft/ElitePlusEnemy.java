@@ -84,4 +84,8 @@ public class ElitePlusEnemy extends AbstractEnemy {
             speedX *= -1;
         }
     }
+
+    public void update(){
+        decreaseHp(30);
+    }
 }

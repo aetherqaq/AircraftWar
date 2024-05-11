@@ -27,4 +27,9 @@ public class MobEnemy extends AbstractEnemy {
     @Override
     public List<BaseProp> generateProp(){return new LinkedList<>();}
 
+    @Override
+    public void update(){
+        vanish();
+    }
+
 }
