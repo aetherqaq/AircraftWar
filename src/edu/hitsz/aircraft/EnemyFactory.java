@@ -1,12 +1,13 @@
 package edu.hitsz.aircraft;
 
 /**
- * 敌机工厂接口：
+ * 敌机工厂抽象类：
  * MobFactory，EliteFactory
  *
  * @author hitsz
  */
-public interface EnemyFactory {
+public abstract class EnemyFactory {
+    protected double multiplier = 1;
     /**
      * 敌机工厂方法
      */

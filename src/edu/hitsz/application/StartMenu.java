@@ -23,7 +23,7 @@ public class StartMenu {
         easyButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                Game game = new Game();
+                Game game = new EasyGame();
                 Main.cardPanel.add(game);
                 Main.cardLayout.last(Main.cardPanel);
                 try {
@@ -40,7 +40,7 @@ public class StartMenu {
         normalButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                Game game = new Game();
+                Game game = new NormalGame();
                 Main.cardPanel.add(game);
                 Main.cardLayout.last(Main.cardPanel);
                 try {
@@ -57,7 +57,7 @@ public class StartMenu {
         hardButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                Game game = new Game();
+                Game game = new HardGame();
                 Main.cardPanel.add(game);
                 Main.cardLayout.last(Main.cardPanel);
                 try {

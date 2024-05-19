@@ -34,7 +34,7 @@ public class RankingTable {
         }
         UserDaoImpl userDao;
         try {
-            userDao = new UserDaoImpl();
+            userDao = new UserDaoImpl(gameLevel);
         } catch (IOException | ClassNotFoundException e) {
             throw new RuntimeException(e);
         }
@@ -86,13 +86,6 @@ public class RankingTable {
     }
 
     public static void main(String[] args) {
-        UserDaoImpl UserDao;
-        try {
-            UserDao = new UserDaoImpl();
-        } catch (IOException | ClassNotFoundException e) {
-            throw new RuntimeException(e);
-        }
-
         JFrame frame = new JFrame("SimpleTable");
         frame.setContentPane(new RankingTable(100,2).mainPanel);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

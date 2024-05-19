@@ -8,7 +8,15 @@ import edu.hitsz.application.Main;
  *
  * @author hitsz
  */
-public class BossFactory implements EnemyFactory{
+public class BossFactory extends EnemyFactory{
+    private int hp = 200;
+    public BossFactory(){
+        super();
+    }
+    public BossFactory(int hp){
+        super();
+        this.hp = hp;
+    }
     @Override
     public AbstractEnemy createEnemy(){
         return new BossEnemy(
@@ -16,7 +24,7 @@ public class BossFactory implements EnemyFactory{
                 (int) (Math.random() * Main.WINDOW_HEIGHT * 0.05),
                 5,
                 0,
-                200
+                hp
         );
     }
 }

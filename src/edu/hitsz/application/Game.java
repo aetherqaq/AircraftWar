@@ -20,7 +20,7 @@ import java.util.concurrent.*;
  *
  * @author hitsz
  */
-public class Game extends JPanel {
+public abstract class Game extends JPanel {
 
     private int backGroundTop = 0;
 
@@ -37,7 +37,7 @@ public class Game extends JPanel {
     private int timeInterval = 40;
 
     private final HeroAircraft heroAircraft;
-    private final List<AbstractEnemy> enemyAircrafts;
+    protected final List<AbstractEnemy> enemyAircrafts;
     private final List<BaseBullet> heroBullets;
     private final List<BaseBullet> enemyBullets;
     private final List<BaseProp> props;
@@ -46,7 +46,7 @@ public class Game extends JPanel {
     /**
      * 屏幕中出现的敌机最大数量
      */
-    private int enemyMaxNumber = 5;
+    protected int enemyMaxNumber = 5;
 
     /**
      * 当前得分
@@ -61,27 +61,28 @@ public class Game extends JPanel {
      * 周期（ms)
      * 指示子弹的发射、敌机的产生频率
      */
-    private int cycleDuration = 600;
+    protected int cycleDuration = 600;
     private int cycleTime = 0;
 
+    protected double shootFrequency = 6;
 
     /**
      * 产生boss敌机分数
      */
-    private int bossScore = 0;
+    protected int bossScore = 0;
 
     /**
      * 游戏结束标志
      */
     private boolean gameOverFlag = false;
 
-    private boolean musicFlag = false;
+    protected boolean musicFlag = false;
     
     MusicThread bossBgmThread;
+    private int shootcycleTime = 0;
 
     public Game() {
         heroAircraft = HeroAircraft.getHeroAircraft();
-
         enemyAircrafts = new LinkedList<>();
         heroBullets = new LinkedList<>();
         enemyBullets = new LinkedList<>();
@@ -112,7 +113,7 @@ public class Game extends JPanel {
     /**
      * 游戏启动入口，执行游戏逻辑
      */
-    public void action() {
+    public final void action() {
 
         // 定时任务：绘制、对象产生、碰撞判定、击毁及结束判定
         Runnable task = () -> {
@@ -124,43 +125,19 @@ public class Game extends JPanel {
             if (timeCountAndNewCycleJudge()) {
                 System.out.println(time);
                 // 新敌机产生
-
-                EnemyFactory enemyFactory;
-                AbstractEnemy enemy;
-                if (enemyAircrafts.size() < enemyMaxNumber) {
-                    double rand = Math.random();
-                    if(rand<0.6){
-                        enemyFactory = new MobFactory();
-                        enemy = enemyFactory.createEnemy();
-                        enemyAircrafts.add(enemy);
-                    }
-                    else if(rand<0.8){
-                        enemyFactory = new EliteFactory();
-                        enemy = enemyFactory.createEnemy();
-                        enemyAircrafts.add(enemy);
-                    }
-                    else{
-                        enemyFactory = new ElitePlusFactory();
-                        enemy = enemyFactory.createEnemy();
-                        enemyAircrafts.add(enemy);
-                    }
-
-                }
+                GenerateEnemy();
                 if(score >= bossScore){
-                    bossScore += 500;
-                    enemyFactory = new BossFactory();
-                    enemy = enemyFactory.createEnemy();
-                    enemyAircrafts.add(enemy);
-                    if(musicFlag){
-                        bossBgmThread = new MusicThread("src/videos/bgm_boss.wav",true);
-                        bossBgmThread.start();
-                    }
+                    GenerateBoss();
                 }
-
-                // 飞机射出子弹
-                shootAction();
             }
 
+            //难度提升
+            if(time%2000==0){
+                increaseDifficulty();
+            }
+
+            // 飞机射出子弹
+            shootAction();
             // 子弹移动
             bulletsMoveAction();
 
@@ -188,7 +165,7 @@ public class Game extends JPanel {
                 if(musicFlag){
                     for(MusicThread musicThread: musicThreads){
                         musicThread.interruptPlay();
-                        bossBgmThread.interruptPlay();
+                        if(bossBgmThread!=null) bossBgmThread.interruptPlay();
                     }
                     new MusicThread("src/videos/game_over.wav",false).start();
                 }
@@ -226,35 +203,53 @@ public class Game extends JPanel {
         }
     }
 
+    private boolean shootNewCycleJudge() {
+        int shootCycle = (int)(10000/shootFrequency);
+        shootcycleTime += timeInterval;
+        if (shootcycleTime >= shootCycle) {
+            // 跨越到新的周期
+            shootcycleTime %= shootCycle;
+            return true;
+        }
+        else return false;
+    }
+
     private void shootAction() {
         // 敌机射击
+        boolean shootFlag = shootNewCycleJudge();
         for(AbstractEnemy enemyAircraft : enemyAircrafts) {
             if(enemyAircraft instanceof BossEnemy){
-                if(time%1800==0){
+                if(shootFlag){
                     enemyBullets.addAll(enemyAircraft.shoot());
                 }
                 continue;
             }
             else if(enemyAircraft instanceof EliteEnemy){
-                if(time%1800==0){
+                if(shootFlag){
                     enemyBullets.addAll(enemyAircraft.shoot());
                 }
                 continue;
             }
             else if(enemyAircraft instanceof ElitePlusEnemy){
-                if(time%1200==0){
+                if(shootFlag){
                     enemyBullets.addAll(enemyAircraft.shoot());
                 }
                 continue;
             }
             else{
-                enemyBullets.addAll(enemyAircraft.shoot());
+                if(shootFlag){
+                    enemyBullets.addAll(enemyAircraft.shoot());
+                }
             }
         }
 
         // 英雄射击
-        heroBullets.addAll(heroAircraft.shoot());
+        if(time%600==0){
+            heroBullets.addAll(heroAircraft.shoot());
+        }
     }
+
+    protected abstract void increaseDifficulty();
 
     private void bulletsMoveAction() {
         for (BaseBullet bullet : heroBullets) {
@@ -276,6 +271,10 @@ public class Game extends JPanel {
             prop.forward();
         }
     }
+
+    protected abstract void GenerateEnemy();
+
+    protected abstract void GenerateBoss();
 
 
     /**

@@ -9,10 +9,19 @@ import java.util.List;
 public class UserDaoImpl implements UserDao{
     //模拟数据库数据
     private List<User> users;
-    public UserDaoImpl() throws IOException, ClassNotFoundException {
+    public UserDaoImpl(int gamelevel) throws IOException, ClassNotFoundException {
         System.out.println(1);
         users = new ArrayList<User>();
-        String dir = "src/data/data.txt";
+        String dir;
+        if(gamelevel==1){
+            dir = "src/data/EasyData.txt";
+        }
+        else if(gamelevel==2){
+            dir = "src/data/NormalData.txt";
+        }
+        else{
+            dir = "src/data/HardData.txt";
+        }
         FileInputStream fis = new FileInputStream(dir);
         BufferedReader br = new BufferedReader(new InputStreamReader(fis, "UTF-8"));
         String name,time,score;
@@ -59,7 +68,7 @@ public class UserDaoImpl implements UserDao{
 
     @Override
     public void update() throws IOException {
-        FileOutputStream fos = new FileOutputStream("src/data/data.txt");
+        FileOutputStream fos = new FileOutputStream("src/data/NormalData.txt");
         OutputStreamWriter osw = new OutputStreamWriter(fos,"UTF-8");
         for(User user: users){
             osw.write(Integer.toString(user.getScore()));

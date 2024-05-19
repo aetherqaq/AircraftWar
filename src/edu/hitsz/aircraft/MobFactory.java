@@ -8,15 +8,22 @@ import edu.hitsz.application.Main;
  *
  * @author hitsz
  */
-public class MobFactory implements EnemyFactory{
+public class MobFactory extends EnemyFactory{
+    public MobFactory(){
+        super();
+    }
+    public MobFactory(double multiplier){
+        super();
+        this.multiplier = multiplier;
+    }
     @Override
     public AbstractEnemy createEnemy() {
         return new MobEnemy(
                 (int) (Math.random() * (Main.WINDOW_WIDTH - ImageManager.ELITE_ENEMY_IMAGE.getWidth())),
                 (int) (Math.random() * Main.WINDOW_HEIGHT * 0.05),
                 0,
-                10,
-                30
+                (int)(8*multiplier),
+                (int)(30*multiplier)
         );
     }
 }
