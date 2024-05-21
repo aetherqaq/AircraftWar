@@ -19,13 +19,6 @@ import java.util.List;
  */
 public class BossEnemy extends AbstractEnemy {
 
-    /**攻击方式 */
-
-    /**
-     * 子弹一次发射数量
-     */
-    private int shootNum = 20;
-
     /**
      * 子弹伤害
      */

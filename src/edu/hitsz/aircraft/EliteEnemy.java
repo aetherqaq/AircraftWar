@@ -53,10 +53,10 @@ public class EliteEnemy extends AbstractEnemy {
         BaseProp prop;
         int x = this.getLocationX();
         int y = this.getLocationY();
-        if(rand < 0.1){
+        if(rand < 0.2){
             return res;
         }
-        else if(rand < 0.4){
+        else if(rand < 0.5){
             propFactory = new BloodFactory(x,y);
             prop = propFactory.createProp();
             res.add(prop);

@@ -69,7 +69,7 @@ public abstract class Game extends JPanel {
     /**
      * 产生boss敌机分数
      */
-    protected int bossScore = 0;
+    protected int bossScore = 600;
 
     /**
      * 游戏结束标志
@@ -284,6 +284,11 @@ public abstract class Game extends JPanel {
      * 3. 英雄获得补给
      */
     private void crashCheckAction() {
+        List<AbstractEnemy> enemys = new LinkedList<>();
+        for(AbstractEnemy enemyAircraft : enemyAircrafts){
+            if(!enemyAircraft.notValid()) enemys.add(enemyAircraft);
+        }
+
         // 敌机子弹攻击英雄
         for (BaseBullet bullet : enemyBullets) {
             if (bullet.notValid()) {
@@ -362,7 +367,7 @@ public abstract class Game extends JPanel {
         }
 
         //获得分数
-        for(AbstractEnemy enemyAircraft:enemyAircrafts){
+        for(AbstractEnemy enemyAircraft:enemys){
             if(enemyAircraft.notValid()){
                 if(enemyAircraft instanceof MobEnemy){
                     score += 10;

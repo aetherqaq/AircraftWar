@@ -1,0 +1,41 @@
+@startuml
+'https://plantuml.com/class-diagram
+
+class PropBomb{
+    - enemyList:List<AbstractFlyingObject>
+    + addEnemy(AbstractFlyingObject enemy):void
+    + removeEnemy(AbstractFlyingObject enemy):void
+    + notifyAllEnemy():void
+    + active():void
+}
+
+abstract class AbstractFlyingObject{
+    + {abstract} update():void
+}
+
+class MobEnemy{
+    + update():void
+}
+
+class EliteEnemy{
+    + update():void
+}
+
+class ElitePlusEnemy{
+    + update():void
+}
+
+class EnemyBullet{
+    + update():void
+}
+
+AbstractFlyingObject <|-- MobEnemy
+AbstractFlyingObject <|-- EliteEnemy
+AbstractFlyingObject <|-- ElitePlusEnemy
+AbstractFlyingObject <|-- EnemyBullet
+
+PropBomb o--> AbstractFlyingObject
+
+
+
+@enduml

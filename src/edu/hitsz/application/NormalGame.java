@@ -22,13 +22,13 @@ public class NormalGame extends Game{
         }
         multiplier += 0.01;
         shootFrequency += 0.05;
-        System.out.println("提高难度 精英机概率："+(1-mobProbability)+"敌机属性提升倍率："+multiplier);
-        System.out.println("敌机射击频率："+(shootFrequency)+"敌机最大数量："+enemyMaxNumber+"boss敌机产生的得分阈值"+bossScore);
+        System.out.println("提高难度 精英机概率："+(1-mobProbability)+" 敌机属性提升倍率："+multiplier);
+        System.out.println("敌机射击频率："+(shootFrequency)+" 敌机最大数量："+enemyMaxNumber+" boss敌机产生的得分阈值"+bossScore);
         if(count<10) count++;
         else{
             enemyMaxNumber++;
             bossScore -= 30;
-            cycleDuration -= 5;
+            if(cycleDuration>400) cycleDuration -= 5;
             count = 0;
         }
     }

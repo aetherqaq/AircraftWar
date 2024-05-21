@@ -9,14 +9,14 @@ import java.util.List;
 public class UserDaoImpl implements UserDao{
     //模拟数据库数据
     private List<User> users;
-    public UserDaoImpl(int gamelevel) throws IOException, ClassNotFoundException {
+    public UserDaoImpl(int gameLevel) throws IOException, ClassNotFoundException {
         System.out.println(1);
         users = new ArrayList<User>();
         String dir;
-        if(gamelevel==1){
+        if(gameLevel==1){
             dir = "src/data/EasyData.txt";
         }
-        else if(gamelevel==2){
+        else if(gameLevel==2){
             dir = "src/data/NormalData.txt";
         }
         else{
@@ -53,17 +53,6 @@ public class UserDaoImpl implements UserDao{
             throw new RuntimeException(e);
         }
         return;
-    }
-
-    @Override
-    public void printRanking(){
-        System.out.println("******************************");
-        System.out.println("          得分排行榜           ");
-        System.out.println("******************************");
-        for(int i=0;i<users.size();i++){
-            User user = users.get(i);
-            System.out.println("第"+(i+1)+"名："+user.getUserName()+","+user.getScore()+","+user.getTime());
-        }
     }
 
     @Override

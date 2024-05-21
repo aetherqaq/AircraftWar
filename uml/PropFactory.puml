@@ -22,13 +22,19 @@ class PropBullet {
      + active(): void
 }
 
+class PropBulletPlus {
+     + PropBulletPlus(int locationX, int locationY, int speedX, int speedY)
+     + active(): void
+}
+
 BaseProp <|-- PropBlood
 BaseProp <|-- PropBomb
 BaseProp <|-- PropBullet
+BaseProp <|-- PropBulletPlus
 
 abstract class PropFactory {
-    - locationX: int
-    - locationY: int
+    # locationX: int
+    # locationY: int
     + PropFactory(int locationX,int locationY)
     + {abstract} createProp(): BaseProp
 }
@@ -39,21 +45,28 @@ class BloodFactory {
 }
 
 class BombFactory {
-    + BloodFactory(int locationX,int locationY)
+    + BombFactory(int locationX,int locationY)
     + createProp(): BaseProp
 }
 
 class BulletFactory {
-    + BloodFactory(int locationX,int locationY)
+    + BulletFactory(int locationX,int locationY)
+    + createProp(): BaseProp
+}
+
+class BulletPlusFactory {
+    + BulletPlusFactory (int locationX,int locationY)
     + createProp(): BaseProp
 }
 
 PropFactory <|-- BloodFactory
 PropFactory <|-- BombFactory
 PropFactory <|-- BulletFactory
+PropFactory <|-- BulletPlusFactory
 
 BloodFactory ..> PropBlood
 BulletFactory ..> PropBullet
+BulletPlusFactory ..> PropBulletPlus
 BombFactory ..> PropBomb
 
 

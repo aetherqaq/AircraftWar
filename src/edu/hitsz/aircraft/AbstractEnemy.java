@@ -20,10 +20,6 @@ public abstract class AbstractEnemy extends AbstractAircraft {
         super(locationX, locationY, speedX, speedY, hp);
     }
 
-    public void generateSpeedX() {
-
-    }
-
     public void forward() {
         super.forward();
         // 判定 y 轴向下飞行出界

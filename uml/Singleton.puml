@@ -10,6 +10,7 @@ class HeroAircraft {
     + {static} getHeroAircraft():HeroAircraft
     + forward():void
     + shoot():List<BaseBullet>
+    + update():void
 }
 
 

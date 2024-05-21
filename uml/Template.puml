@@ -1,0 +1,39 @@
+@startuml
+'https://plantuml.com/class-diagram
+
+abstract class Game{
+    + action(): void
+    # {abstract} GenerateEnemy():void
+    # {abstract} GenerateBoss():void
+    # {abstract} increaseDifficulty():void
+    - shootAction():void
+    - bulletsMoveAction():void
+    - aircraftsMoveAction():void
+    - propsMoveAction():void
+    - crashCheckAction():void
+    - postProcessAction():void
+}
+
+class EasyGame{
+    # GenerateEnemy():void
+    # GenerateBoss():void
+    # increaseDifficulty():void
+}
+
+class NormalGame{
+    # GenerateEnemy():void
+    # GenerateBoss():void
+    # increaseDifficulty():void
+}
+
+class HardGame{
+    # GenerateEnemy():void
+    # GenerateBoss():void
+    # increaseDifficulty():void
+}
+
+Game <|-- EasyGame
+Game <|-- NormalGame
+Game <|-- HardGame
+
+@enduml

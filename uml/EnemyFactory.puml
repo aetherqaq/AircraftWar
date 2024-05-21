@@ -10,25 +10,26 @@ abstract class AbstractEnemy {
 
 class MobEnemy {
     + MobEnemy(int locationX, int locationY, int speedX, int speedY, int hp)
-    + shoot():List<BaseBullet>
-    + generateProp() : List<BaseProp>
+}
+
+class EliteEnemy {
+    + EliteEnemy(int locationX, int locationY, int speedX, int speedY, int hp)
+}
+
+class ElitePlusEnemy {
+    + ElitePlusEnemy(int locationX, int locationY, int speedX, int speedY, int hp)
+}
+
+class BossEnemy {
+    + BossEnemy(int locationX, int locationY, int speedX, int speedY, int hp)
 }
 
 AbstractEnemy <|-- MobEnemy
-
-class EliteEnemy {
-    - shootNum:int
-    - power:int
-    - direction:int
-    + EliteEnemy(int locationX, int locationY, int speedX, int speedY, int hp)
-    + shoot():List<BaseBullet>
-    + generateProp() : List<BaseProp>
-    + forward():void
-}
-
 AbstractEnemy <|-- EliteEnemy
+AbstractEnemy <|-- ElitePlusEnemy
+AbstractEnemy <|-- BossEnemy
 
-interface EnemyFactory {
+abstract class EnemyFactory {
     + {abstract} createEnemy(): AbstractEnemy
 }
 
@@ -40,10 +41,22 @@ class EliteFactory {
     + createEnemy(): AbstractEnemy
 }
 
+class ElitePlusFactory {
+    + createEnemy(): AbstractEnemy
+}
+
+class BossFactory {
+    + createEnemy(): AbstractEnemy
+}
+
 EnemyFactory <|.. MobFactory
 EnemyFactory <|.. EliteFactory
+EnemyFactory <|.. ElitePlusFactory
+EnemyFactory <|.. BossFactory
 
 MobFactory ..> MobEnemy
 EliteFactory ..> EliteEnemy
+ElitePlusFactory ..> ElitePlusEnemy
+BossFactory ..> BossEnemy
 
 @enduml
